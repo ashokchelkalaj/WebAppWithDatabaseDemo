@@ -37,10 +37,11 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: AzureWebApp@1
-  displayName: deploy to Appservice
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Azure App Service Deploy: dotnetsampl'
   inputs:
-    azureSubscription: 'appservice'
-    appType: 'webAppLinux'
-    appName: 'dotnetsampl'
-    package: '$(System.DefaultWorkingDirectory)/_ashokchelkalaj.WebAppWithDatabaseDemo/drop/WebApp.zip'
+    azureSubscription: appservice
+    appType: webAppLinux
+    WebAppName: dotnetsampl
+    packageForLinux: '$(System.DefaultWorkingDirectory)/_ashokchelkalaj.WebAppWithDatabaseDemo/drop/WebApp.zip'
+    
