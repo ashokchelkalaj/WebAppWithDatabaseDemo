@@ -37,8 +37,14 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
+    publishLocation: Container
 
-
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'
 
 - task: AzureRmWebAppDeployment@4
   displayName: 'Azure App Service Deploy: dotnetsampl'
@@ -46,5 +52,5 @@ steps:
     azureSubscription: appservice
     appType: webAppLinux
     WebAppName: dotnetsampl
-    package: '$(System.DefaultWorkingDirectory)/_ashokchelkalaj.WebAppWithDatabaseDemo/drop/WebApp.zip'
+    package: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
     
