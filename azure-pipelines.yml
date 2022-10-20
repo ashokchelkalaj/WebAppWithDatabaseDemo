@@ -45,5 +45,5 @@ steps:
     azureSubscription: appservice
     appType: webAppLinux
     WebAppName: dotnetsampl
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux:  https://dev.azure.com/djvizag94//_apis/resources/Containers/7503157?itemPath=drop&isShallow=true&api-version=4.1-preview.4
     
