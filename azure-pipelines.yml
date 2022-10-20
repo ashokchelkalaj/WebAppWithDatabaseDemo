@@ -11,16 +11,19 @@ pool:
 
 steps:
 - task: DotNetCoreCLI@2
+  displayName: Restore
   inputs:
     command: 'restore'
     projects: '**/WebApp.csproj'
     feedsToUse: 'select'
 - task: DotNetCoreCLI@2
+  displayName: Build
   inputs:
     command: 'build'
     projects: '**/WebApp.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 - task: DotNetCoreCLI@2
+  displayName: Publish
   inputs:
     command: 'publish'
     publishWebProjects: true
@@ -28,7 +31,16 @@ steps:
     zipAfterPublish: true
 
 - task: PublishBuildArtifacts@1
+  displayName:PublishBuildArtifacts
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: AzureWebApp@1
+  displayName: deploy to Appservice
+  inputs:
+    azureSubscription: 'appservice'
+    appType: 'webAppLinux'
+    appName: 'dotnetsampl'
+    package: '$(System.DefaultWorkingDirectory)/_ashokchelkalaj.WebAppWithDatabaseDemo/drop/WebApp.zip'
