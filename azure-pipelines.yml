@@ -45,5 +45,5 @@ steps:
     azureSubscription: appservice
     appType: webAppLinux
     WebAppName: dotnetsampl
-    packageForLinux: '$(System.DefaultWorkingDirectory)/_ashokchelkalaj.WebAppWithDatabaseDemo/drop/WebApp.zip'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/drop/WebApp.zip'
     
