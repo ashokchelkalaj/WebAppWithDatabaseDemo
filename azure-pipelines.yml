@@ -15,7 +15,7 @@ steps:
     command: 'restore'
     projects: '**/Webapp.csproj'
     feedsToUse: 'select'
-- task: DotNetCorebuild@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '**/Webapp.csproj'
