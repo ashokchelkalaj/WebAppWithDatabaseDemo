@@ -46,11 +46,17 @@ steps:
     artifactName: 'drop'
     downloadPath: '$(System.ArtifactsDirectory)'
 
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deploy: dotnetsampl'
-  inputs:
-    azureSubscription: appservice
-    appType: webAppLinux
-    WebAppName: dotnetsampl
-    package: '$(System.ArtifactsDirectory)/drop/WebApp.zip'
+jobs:
+- deployment: VMDeploy
+  displayName: Web deploy
+  environment:
+    name: dotnet
+    resourceType: VirtualMachine
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - download: current
+          artifact: drop
+        - script: sudo dotnet run
     
