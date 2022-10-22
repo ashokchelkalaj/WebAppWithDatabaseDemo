@@ -11,6 +11,8 @@ variables:
 pool:
   vmImage: ubuntu-latest
 
+jobs:
+
 steps:
 - task: DotNetCoreCLI@2
   displayName: Restore
