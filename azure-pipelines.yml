@@ -11,12 +11,10 @@ variables:
 pool:
   vmImage: ubuntu-latest
   
-stages:
-- stage: Build
-  displayName: build stage
-  jobs:
+
+jobs:
   - job: build
-   displayName: Build
+    displayNme: Build
     steps:
     - task: DotNetCoreCLI@2
       inputs:
@@ -49,11 +47,12 @@ stages:
       buildType: 'current'
       downloadType: 'single'
       artifactName: 'drop'
-      downloadPath: '$(System.ArtifactsDirectory)'
+      downloadPath: '$(System.ArtifactsDirectory)'  
 
-- stage: deploy
-  jobs:
-  - deployment: VMDeploy
+
+ 
+ 
+- deployment: VMDeploy
   displayName: Web deploy
   environment:
     name: dotnet
@@ -65,6 +64,13 @@ stages:
         - download: current
           artifact: drop
         - script: sudo dotnet run
+
+ 
+
+
+
+
+
 
 
 
