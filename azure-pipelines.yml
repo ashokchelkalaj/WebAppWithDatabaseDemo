@@ -16,7 +16,7 @@ stages:
   displayName: build stage
   jobs:
   - job: build
-   displayName: displayNme: Build
+   displayName: Build
     steps:
     - task: DotNetCoreCLI@2
       inputs:
