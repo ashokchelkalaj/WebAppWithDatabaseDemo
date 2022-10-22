@@ -46,7 +46,7 @@ steps:
     artifactName: 'drop'
     downloadPath: '$(System.ArtifactsDirectory)'
 
-jobs:
+
 - deployment: VMDeploy
   displayName: Web deploy
   environment:
