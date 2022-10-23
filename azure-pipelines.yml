@@ -66,5 +66,5 @@ stages:
               - script: |
                
                  sudo cp  /home/azureuser/azagent/_work/1/drop/WebApp.zip   /home/azureuser/azagent/_work/1/s
-                 sudo unzip WebApp.zip
+                
                  sudo dotnet WebApp.dll
