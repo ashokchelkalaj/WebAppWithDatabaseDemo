@@ -65,5 +65,7 @@ stages:
                 artifact: drop
               - script: |
                 
-                workingDirectory: 
-                  sudo dotnet run 
+                 sudo apt install -y zip   # Installs the zip package
+                 sudo apt install  -y unzip # Installs the unzip package
+                 sudo unzip  WebApp.zip 
+                 sudo dotnet run 
