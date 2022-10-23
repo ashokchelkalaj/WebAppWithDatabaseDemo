@@ -64,6 +64,7 @@ stages:
               - download: current
                 artifact: drop
               - script: |
-                sudo cp  /home/azureuser/azagent/_work/1/drop/WebApp.zip  /home/azureuser/azagent/_work/1/s
-                sudo unzip  WebApp.zip 
-                   sudo dotnet run
+               
+                sudo cp  /home/azureuser/azagent/_work/1/drop/WebApp.zip   /home/azureuser/azagent/_work/1/s
+                 sudo unzip WebApp.zip
+                 sudo dotnet run 
