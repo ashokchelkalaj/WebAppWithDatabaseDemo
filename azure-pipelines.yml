@@ -1,82 +1,62 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
-variables:
-  buildConfiguration: 'Release'
-
-pool:
-  vmImage: ubuntu-latest
-  
-
-jobs:
-  - job: build
-    displayNme: Build
-    steps:
-    - task: DotNetCoreCLI@2
-      inputs:
-      command: 'restore'
-      projects: '**/WebApp.csproj'
-      feedsToUse: 'select'
-    - task: DotNetCoreCLI@2
-      displayName: Build
-      inputs:
-      command: 'build'
-      projects: '**/WebApp.csproj'
-      arguments: '--configuration $(BuildConfiguration)'
-    - task: DotNetCoreCLI@2
-      displayName: Publish
-      inputs:
-      command: 'publish'
-      publishWebProjects: true
-      arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-      zipAfterPublish: true   
-
-    - task: PublishBuildArtifacts@1
-      displayName: PublishBuildArtifacts
-      inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
-      publishLocation: Container
-
-    - task: DownloadBuildArtifacts@1
-      inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      artifactName: 'drop'
-      downloadPath: '$(System.ArtifactsDirectory)'  
-
-
- 
- 
-- deployment: VMDeploy
-  displayName: Web deploy
-  environment:
-    name: dotnet
-    resourceType: VirtualMachine
-  strategy:
-    runOnce:
-      deploy:
+ branches:
+   include:
+     - master
+stages:
+  - stage: Build_stage
+    displayName: Build
+    jobs:
+      - job:
+        displayName: web app
+        pool:
+          vmImage: ubuntu-latest
+        variables:
+          BuildConfiguration: Release
         steps:
-        - download: current
-          artifact: drop
-        - script: sudo dotnet run
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'restore'
+            projects: '**/WebApp/.csproj'
+            feedsToUse: 'select'
+            
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'build'
+            projects: '**/WebApp.csproj'
+            arguments: '--configuration $(BuildConfiguration)'
+          
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'publish'
+            publishWebProjects: true
+            arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+            zipAfterPublish: true
+          
+        - task: PublishBuildArtifacts@1
+          displayName: PublishBuildArtifacts
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: Container
+          
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'drop'
+            downloadPath: '$(System.ArtifactsDirectory)'
+  
+  - stage: Deploy
+    jobs:
+      - deployment: VMDeploy
+        displyName: 
+        environment:
+         name: dotnet
+         resourceType: VirtualMachine
+        strategy:
+         runOnce:
+           deploy:
+            steps:
+              - download: current
+                artifact: drop
+              - script: sudo dotnet run
