@@ -49,7 +49,7 @@ stages:
   - stage: Deploy
     jobs:
       - deployment: VMDeploy
-        displyName: 
+         
         environment:
          name: dotnet
          resourceType: VirtualMachine
