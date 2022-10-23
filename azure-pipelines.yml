@@ -63,4 +63,7 @@ stages:
             steps:
               - download: current
                 artifact: drop
-              - script: sudo dotnet run
+              - script: |
+                
+                workingDirectory: 
+                  sudo dotnet run 
