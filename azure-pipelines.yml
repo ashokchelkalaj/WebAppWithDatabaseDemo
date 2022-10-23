@@ -54,9 +54,9 @@ stages:
       - deployment: VMDeploy
          
         environment:
-         name: dotnet
+         name: New
          resourceType: VirtualMachine
-         resourceName: vm
+         resourceName: dotnetvm
         strategy:
          runOnce:
            deploy:
