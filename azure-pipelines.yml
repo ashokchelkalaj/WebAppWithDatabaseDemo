@@ -14,18 +14,21 @@ stages:
           BuildConfiguration: Release
         steps:
         - task: DotNetCoreCLI@2
+          displayName: restore
           inputs:
             command: 'restore'
             projects: '**/WebApp/.csproj'
             feedsToUse: 'select'
             
         - task: DotNetCoreCLI@2
+          displayName: build
           inputs:
             command: 'build'
             projects: '**/WebApp.csproj'
             arguments: '--configuration $(BuildConfiguration)'
           
         - task: DotNetCoreCLI@2
+          displayName: publish
           inputs:
             command: 'publish'
             publishWebProjects: true
