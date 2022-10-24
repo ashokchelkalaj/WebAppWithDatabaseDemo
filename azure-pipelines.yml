@@ -69,5 +69,8 @@ stages:
             displayName: 'Download build artifacts'
             artifact: 'drop'
           - publish: true
-            name: drop
+            artifact: drop
+              
+
+            
             
