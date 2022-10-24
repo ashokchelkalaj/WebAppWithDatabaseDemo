@@ -68,7 +68,5 @@ stages:
             name: 'DownloadBuildArtifacts'            
             displayName: 'Download build artifacts'
             artifact: 'drop'
-          - task: DotNetCoreCLI@2
-            inputs:
-              command: 'run'
-              projects: ' /home/vsts/work/1/drop'
+          - publish: true
+            
