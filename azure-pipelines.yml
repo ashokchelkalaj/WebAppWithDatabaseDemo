@@ -68,3 +68,7 @@ stages:
             name: 'DownloadBuildArtifacts'            
             displayName: 'Download build artifacts'
             artifact: 'drop'
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'run'
+              projects: '/home/azureuser/azagent/_work/1/'
