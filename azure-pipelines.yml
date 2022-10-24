@@ -68,7 +68,7 @@ stages:
             name: 'DownloadBuildArtifacts'            
             displayName: 'Download build artifacts'
             artifact: 'drop'
-          - script: dotnet watch -d
+          - script: dotnet watch -d --project /home/vsts/work/1/drop/ 
   
 
               
