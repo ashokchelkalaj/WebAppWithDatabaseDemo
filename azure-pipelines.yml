@@ -70,7 +70,7 @@ stages:
             artifact: 'drop'
           - script: |
                sudo unzip /home/vsts/work/1/drop/WebApp.zip  -d  /home/vsts/work/1/s
-               dotnet watch -d  WebApp.dll
+               dotnet run -d  WebApp.dll
   
 
               
