@@ -68,8 +68,9 @@ stages:
             name: 'DownloadBuildArtifacts'            
             displayName: 'Download build artifacts'
             artifact: 'drop'
-          - publish: true
-            artifact: drop
+          - script: dotnet watch -d
+  
+
               
 
             
