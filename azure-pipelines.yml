@@ -71,4 +71,4 @@ stages:
           - task: DotNetCoreCLI@2
             inputs:
               command: 'run'
-              projects: '/home/azureuser/azagent/_work/1/'
+              projects: ' /home/vsts/work/1/drop'
