@@ -73,7 +73,7 @@ stages:
                sudo cp   -r  /home/vsts/work/1/drop/WebApp/*  /home/vsts/work/1/s
                pwd
                ls
-               dotnet run   WebApp.dll
+               dotnet run   **/*.dll
   
 
               
