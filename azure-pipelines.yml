@@ -53,8 +53,15 @@ stages:
     jobs:
       - deployment: 
         environment: win
+        strategy:
+         runOnce:
+           deploy:
+             steps:
+               - download: current
+                 name: DownloadBuildArtifacts
+                 artifact: drop
       - job:
-        displayName: web app
+        displayName: webapp
         pool:
           vmImage: windows-latest
         steps:
