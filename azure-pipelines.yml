@@ -51,6 +51,7 @@ stages:
   - stage:
     displayName: deploy
     jobs:
+      - job: 
       - deployment: 
         environment: win
         strategy:
@@ -60,7 +61,8 @@ stages:
                - download: current
                  name: DownloadBuildArtifacts
                  artifact: drop
-      - job:
+    
+      
         displayName: webapp
         pool:
           vmImage: windows-latest
@@ -77,7 +79,7 @@ stages:
           - task: IISWebAppDeploymentOnMachineGroup@0
             inputs:
               WebSiteName: 'WebApp'
-              Package: ' /home/vsts/work/1/drop/WebApp.zip'
+              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
           - task: IISWebAppManagementOnMachineGroup@0
             inputs:
               EnableIIS: true
