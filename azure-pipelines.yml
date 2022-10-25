@@ -57,7 +57,7 @@ stages:
       - deployment: 
         environment:
            name: dotnetvm
-           resourceName: win
+           resourceName: dotnetvm
         strategy:
          runOnce:
            deploy:
