@@ -9,7 +9,7 @@ stages:
       - job:
         displayName: web app
         pool:
-          vmImage: ubuntu-latest
+          vmImage: windows-latest
         variables:
           BuildConfiguration: Release
         steps:
@@ -50,6 +50,8 @@ stages:
             downloadPath: '$(System.ArtifactsDirectory)'
   - stage:
     displayName: deploy
+    pool:
+         vmImage: windows-latest
     jobs:
       - job: 
       - deployment: 
@@ -61,28 +63,23 @@ stages:
                - download: current
                  name: DownloadBuildArtifacts
                  artifact: drop
-    
-      
-        displayName: webapp
-        pool:
-          vmImage: windows-latest
-        steps:
-          - task: IISWebAppManagementOnMachineGroup@0
-            inputs:
-              EnableIIS: true
-              IISDeploymentType: 'IISWebsite'
-              ActionIISWebsite: 'CreateOrUpdateWebsite'
-              WebsiteName: 'WebApp'
-              WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot'
-              WebsitePhysicalPathAuth: 'WebsiteUserPassThrough' 
+                     
+               - task: IISWebAppManagementOnMachineGroup@0
+                 inputs:
+                   EnableIIS: true
+                   IISDeploymentType: 'IISWebsite'
+                   ActionIISWebsite: 'CreateOrUpdateWebsite'
+                   WebsiteName: 'WebApp'
+                   WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot'
+                   WebsitePhysicalPathAuth: 'WebsiteUserPassThrough' 
 
-          - task: IISWebAppDeploymentOnMachineGroup@0
-            inputs:
-              WebSiteName: 'WebApp'
-              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
-          - task: IISWebAppManagementOnMachineGroup@0
-            inputs:
-              EnableIIS: true
-              IISDeploymentType: 'IISWebsite'
-              ActionIISWebsite: 'StartWebsite'
-              StartStopWebsiteName: 'WebApp'
+               - task: IISWebAppDeploymentOnMachineGroup@0
+                 inputs:
+                   WebSiteName: 'WebApp'
+                   Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+               - task: IISWebAppManagementOnMachineGroup@0
+                 inputs:
+                   EnableIIS: true
+                   IISDeploymentType: 'IISWebsite'
+                   ActionIISWebsite: 'StartWebsite'
+                   StartStopWebsiteName: 'WebApp'
