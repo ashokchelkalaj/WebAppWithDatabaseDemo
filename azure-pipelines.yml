@@ -70,10 +70,10 @@ stages:
             artifact: 'drop'
           - script: |
                pwd     
-               sudo cp   -r  /home/vsts/work/1/drop/  /home/vsts/work/1/s
+               sudo cp   -r  /home/vsts/work/1/drop/*  /home/vsts/work/1/s
                pwd
                ls
-               dotnet run  
+               dotnet run   
   
 
               
