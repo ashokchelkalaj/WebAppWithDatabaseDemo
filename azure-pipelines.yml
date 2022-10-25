@@ -33,7 +33,7 @@ stages:
             command: 'publish'
             publishWebProjects: true
             arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-            zipAfterPublish: false
+            zipAfterPublish: true
           
         - task: PublishBuildArtifacts@1
           displayName: PublishBuildArtifacts
@@ -49,20 +49,15 @@ stages:
             artifactName: 'drop'
             downloadPath: '$(System.ArtifactsDirectory)'
   - stage:
-  
     displayName: deploy
-    
     jobs:
       - deployment: 
         environment: win
       - job:
         displayName: web app
-         
-
         pool:
           vmImage: windows-latest
         steps:
-      
           - task: IISWebAppManagementOnMachineGroup@0
             inputs:
               EnableIIS: true
