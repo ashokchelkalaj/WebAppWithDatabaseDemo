@@ -33,7 +33,7 @@ stages:
             command: 'publish'
             publishWebProjects: true
             arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-            zipAfterPublish: true
+            zipAfterPublish: false
           
         - task: PublishBuildArtifacts@1
           displayName: PublishBuildArtifacts
@@ -70,7 +70,8 @@ stages:
             artifact: 'drop'
           - script: |
                sudo cp /home/vsts/work/1/drop/WebApp.zip   /home/vsts/work/1/s
-               sudo unzip **/*.zip
+               sudo unzip **/*.
+               zip
                dotnet run  
   
 
