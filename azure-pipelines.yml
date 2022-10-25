@@ -65,23 +65,5 @@ stages:
                - download: current
                  name: DownloadBuildArtifacts
                  artifact: drop
+               - script: dotnet run
                      
-               - task: IISWebAppManagementOnMachineGroup@0
-                 inputs:
-                   EnableIIS: true
-                   IISDeploymentType: 'IISWebsite'
-                   ActionIISWebsite: 'CreateOrUpdateWebsite'
-                   WebsiteName: 'WebApp'
-                   WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot'
-                   WebsitePhysicalPathAuth: 'WebsiteUserPassThrough' 
-
-               - task: IISWebAppDeploymentOnMachineGroup@0
-                 inputs:
-                   WebSiteName: 'WebApp'
-                   Package: 'D:\a\1'
-               - task: IISWebAppManagementOnMachineGroup@0
-                 inputs:
-                   EnableIIS: true
-                   IISDeploymentType: 'IISWebsite'
-                   ActionIISWebsite: 'StartWebsite'
-                   StartStopWebsiteName: 'WebApp'
