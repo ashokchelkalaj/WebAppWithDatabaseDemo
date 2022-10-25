@@ -51,12 +51,12 @@ stages:
   - stage:
     displayName: deploy
     pool:
-         vmImage: windows-latest
+         vmImage: ubuntu-latest
     jobs:
       - job: 
       - deployment: 
         environment:
-           name: win
+           name: dotnetvm
            resourceName: win
         strategy:
          runOnce:
