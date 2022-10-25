@@ -69,9 +69,9 @@ stages:
             displayName: 'Download build artifacts'
             artifact: 'drop'
           - script: |
-               sudo cp /home/vsts/work/1/drop/WebApp.zip   /home/vsts/work/1/s
-               sudo unzip **/*.
-               zip
+               sudo cp /home/vsts/work/1/drop/  /home/vsts/work/1/s
+            
+              
                dotnet run  
   
 
