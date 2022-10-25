@@ -55,7 +55,9 @@ stages:
     jobs:
       - job: 
       - deployment: 
-        environment: win
+        environment:
+           name: win
+           resourceName: win
         strategy:
          runOnce:
            deploy:
