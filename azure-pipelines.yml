@@ -76,7 +76,7 @@ stages:
                - task: IISWebAppDeploymentOnMachineGroup@0
                  inputs:
                    WebSiteName: 'WebApp'
-                   Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+                   Package: 'D:\a\1'
                - task: IISWebAppManagementOnMachineGroup@0
                  inputs:
                    EnableIIS: true
