@@ -48,35 +48,37 @@ stages:
             downloadType: 'single'
             artifactName: 'drop'
             downloadPath: '$(System.ArtifactsDirectory)'
+  - stage:
   
-  - stage: DeployWebsite
-    displayName: 'Deploy website'        
-    pool:
-      vmImage: ubuntu-latest
+    displayName: deploy
     
-    jobs:    
-    - deployment: DeployWebsite
-      displayName: 'Deploy website'
-      environment: 'dotnetvm'
-      strategy:
-       runOnce:
-         deploy:           
-          steps:
-          - checkout: none
-          
-          - download: 'current'
-            name: 'DownloadBuildArtifacts'            
-            displayName: 'Download build artifacts'
-            artifact: 'drop'
-          - script: |
-               pwd     
-               sudo cp   -r  /home/vsts/work/1/drop/WebApp/*  /home/vsts/work/1/s
-               pwd
-               ls
-               dotnet run  --project  **/*.dll
-  
+    jobs:
+      - deployment: 
+        environment: win
+      - job:
+        displayName: web app
+         
 
-              
+        pool:
+          vmImage: windows-latest
+        steps:
+      
+          - task: IISWebAppManagementOnMachineGroup@0
+            inputs:
+              EnableIIS: true
+              IISDeploymentType: 'IISWebsite'
+              ActionIISWebsite: 'CreateOrUpdateWebsite'
+              WebsiteName: 'WebApp'
+              WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot'
+              WebsitePhysicalPathAuth: 'WebsiteUserPassThrough' 
 
-            
-            
+          - task: IISWebAppDeploymentOnMachineGroup@0
+            inputs:
+              WebSiteName: 'WebApp'
+              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+          - task: IISWebAppManagementOnMachineGroup@0
+            inputs:
+              EnableIIS: true
+              IISDeploymentType: 'IISWebsite'
+              ActionIISWebsite: 'StartWebsite'
+              StartStopWebsiteName: 'WebApp'
